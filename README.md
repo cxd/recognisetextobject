@@ -30,6 +30,25 @@ The intention is to make use of readily available consumer products, in this cas
 
 The audience would be for people who may have partial sight, but may require some assistance in reading signage.
 
+### UI Example
+
+The UI is pictured below.
+
+![ui example](img/example_screen.png)
+
+The idea is that the user would align the phone in a position with the object that they'd like to have read to them.
+The UI will highlight any word boundaries that are detected by the vision API and overlay them on the video.
+
+The user then taps the word area they would like read out. They can repeatedly tap the word in order to have it read out several times.
+
+Note also that due to image and lighting conditions, the user may need to tap several times in order to get a vocal response from the device, as not all word images are recognised immediately. This speaks to the sensitivity of OCR to lighting conditions and further exploration that would be required for image preprocessing.
+
+The small box area in the lower left is a preview of each word that is used for debugging purposes, one consideration could be to use a preview that is also updated when the user taps the area of the screen. Although the emphasis of the interaction should be course grained, and focus on audible or tactile feedback rather than relying on any fine image detail.
+
+The UI lacks visual design, and is essentially a wireframe to test out the key functionality.
+
+Other considerations would be to look at using audio to assist the user in targetting word boundaries if they have difficulty visibly differentiating the highlighted visual areas, alternately a tactile feedback could be used to indicate word boundary regions.
+
 ## Limitations and areas for further exploration.
 
 This is a very short duration investigation, not intended for production usage, however, there are a number of limitations that I can think of.

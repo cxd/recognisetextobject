@@ -16,7 +16,8 @@ AVCaptureVideoDataOutputSampleBufferDelegate,
 WithLock {
     
    
-
+    @IBOutlet var navBar:UINavigationBar!
+    
     @IBOutlet var streamView:UIImageView!
     
     @IBOutlet weak var imagePreview:UIImageView!
@@ -78,7 +79,6 @@ WithLock {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("View did load.");
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,6 +87,8 @@ WithLock {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.title = "Recognise Text Object"
+        
         let (input, output) = captureDevice.flatMap {
             device in
             return capture.startCapture(session: session,
@@ -118,6 +120,9 @@ WithLock {
         }
     }
     
+    /**
+     using the image perform OCR extract the text and announce it if it is available.
+     **/
     func transcribeAndAnnounce(parentBatch:TextSegmentBatch, segments:Array<TextSegment>) {
         let transcriptions:Array<String> = segments.map {
             segment in
