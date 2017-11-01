@@ -25,10 +25,10 @@ Previous examples of utilising each of these capabilities on iOS are available a
 
 ## Project Description
 
-This project is a short proof of concept of an assistive utility for use in cases where the end user may have difficulty reading.
+This project is a short proof of concept of an assistive utility for use in cases where the end user may have difficulty reading due to partial sight.
 The intention is to make use of readily available consumer products, in this case the iPhone and iOS related technology stack.
 
-The audience would be for people who may have partial site, but may require some assistance in reading signage.
+The audience would be for people who may have partial sight, but may require some assistance in reading signage.
 
 ## Limitations and areas for further exploration.
 
