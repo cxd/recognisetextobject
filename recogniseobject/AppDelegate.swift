@@ -2,9 +2,6 @@
 //  AppDelegate.swift
 //  recogniseobject
 //
-//  Created by Chris Davey on 1/10/17.
-//  Copyright © 2017 Chris Davey. All rights reserved.
-//
 
 import UIKit
 import CoreData

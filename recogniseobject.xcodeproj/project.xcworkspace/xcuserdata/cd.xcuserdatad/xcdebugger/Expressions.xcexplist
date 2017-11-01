@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "VNRectangleObservation.toRect():ParentViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ParentViewController.detectTextHandler(ciImage:):ParentViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ParentViewController.textRectangleToSegment(box:):ParentViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "box.bottomRight">
+            </PersistentString>
+            <PersistentString
+               value = "box.topLeft">
+            </PersistentString>
+            <PersistentString
+               value = "box.bottomLeft">
+            </PersistentString>
+            <PersistentString
+               value = "box.topRight">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ParentViewController.transferSegmentToImagePreview(segment:image:):ParentViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "imagePreview.image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in TextSegmentBatch.classificationCompleted(segment:):TextSegmentBatch.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "results.first.identifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
