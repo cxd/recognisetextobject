@@ -212,9 +212,7 @@ WithLock {
     func textRectangleToSegment(boxRect:CGRect) -> TextSegment {
         var uiRect = CGRect()
         DispatchQueue.main.sync() {
-            //uiRect = self.streamView.bounds
-            let layer = self.streamView.layer
-            uiRect = layer.sublayers![0].bounds
+            uiRect = self.streamView!.bounds
         }
         let scaleX = uiRect.width
         let scaleY = uiRect.height
@@ -252,43 +250,7 @@ WithLock {
     
     func textRectangleToSegment(box:VNRectangleObservation) -> TextSegment {
        let boxRect = box.boundingBox
-        var uiRect = CGRect()
-        DispatchQueue.main.sync() {
-            //uiRect = self.streamView.bounds
-            let layer = self.streamView.layer
-            uiRect = layer.sublayers![0].bounds
-        }
-        let scaleX = uiRect.width
-        let scaleY = uiRect.height
-        
-        // we want the scaled rectangle for the drawing area.
-        // s_x s_y and concatenate with transform to offset against the height of the streaming view boundar.
-        let transform = CGAffineTransform(scaleX:CGFloat(scaleX), y:CGFloat(scaleY))
-            //.concatenating(CGAffineTransform(translationX: 0, y: 0))
-        let tempRect = boxRect.applying(transform)
-        let scaledRect = CGRect(x:tempRect.origin.x,
-                                y:tempRect.origin.y,
-                                width:tempRect.width,
-                                height:tempRect.height)
-        
-        
-        let debug = String(format:"x:%f y:%f width:%f height:%f",
-                           boxRect.minX,
-                           boxRect.minY,
-                           boxRect.width,
-                           boxRect.height)
-        
-        print(debug)
-        
-        let debug2 = String(format:"SCALED: x:%f y:%f width:%f height:%f",
-                           scaledRect.minX,
-                           scaledRect.minY,
-                           scaledRect.width,
-                           scaledRect.height)
-        
-        print(debug2)
-        
-        return TextSegment(inRect: boxRect, inScaledRect: scaledRect)
+        return self.textRectangleToSegment(boxRect:boxRect)
     }
     
     
@@ -331,8 +293,7 @@ WithLock {
                                        fillCol:CGColor? = nil) {
         // update the ui
         DispatchQueue.main.async() {
-            let layer = self.streamView!.layer
-            let bounds = layer.sublayers![0].bounds
+            let bounds = self.streamView!.bounds
             
             let newFrame = CGRect(x:segment.scaledRect!.origin.x,
                                   y:bounds.height - segment.scaledRect!.origin.y - segment.scaledRect!.height,
