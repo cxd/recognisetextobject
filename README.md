@@ -34,9 +34,9 @@ The audience would be for people who may have partial sight, but may require som
 
 This is a very short duration investigation, not intended for production usage, however, there are a number of limitations that I can think of.
 
-#### User interface screen dependency for low site.
+#### User interface screen dependency for partial sight.
 
-The end user interface may not be entirely appropriate for someone with partial site, for exampe, using a rectangle to highlight an area of text or word on a video stream may be just as difficult to see for a person with partial site, as the original word is in front of them.
+The end user interface may not be entirely appropriate for someone with partial sight, for exampe, using a rectangle to highlight an area of text or word on a video stream may be just as difficult to see for a person with partial sight, as the original word is in front of them.
 Hence limiting the device to read out only those words that the end user touches may pose some difficulty. More methods of interaction should
 be investigated such as permitting the user to point using their hand in front of the camera and recognising the word closest to where they are pointing prior to reading that out.
 How does a screen provide feedback, for a person of low site? Perhaps high contrast colours may be of some help here, and perhaps some kind of audible tone that assists in aiming at the target word either using touch motions or using the hand in front of the device tracked in the video stream.
