@@ -32,7 +32,7 @@ The audience would be for people who may have partial sight, but may require som
 
 ### UI Example
 
-The UI is pictured below.
+The UI is pictured below. The UI lacks visual design, and is essentially a wireframe to test out the key functionality.
 
 ![ui example](img/example_screen.png)
 
@@ -45,7 +45,6 @@ Note also that due to image and lighting conditions, the user may need to tap se
 
 The small box area in the lower left is a preview of each word that is used for debugging purposes, one consideration could be to use a preview that is also updated when the user taps the area of the screen. Although the emphasis of the interaction should be course grained, and focus on audible or tactile feedback rather than relying on any fine image detail.
 
-The UI lacks visual design, and is essentially a wireframe to test out the key functionality.
 
 Other considerations would be to look at using audio to assist the user in targetting word boundaries if they have difficulty visibly differentiating the highlighted visual areas, alternately a tactile feedback could be used to indicate word boundary regions.
 
@@ -55,7 +54,7 @@ This is a very short duration investigation, not intended for production usage, 
 
 #### User interface screen dependency for partial sight.
 
-The end user interface may not be entirely appropriate for someone with partial sight, for exampe, using a rectangle to highlight an area of text or word on a video stream may be just as difficult to see for a person with partial sight, as the original word is in front of them.
+The end user interface may not be entirely appropriate for someone with partial sight, for example, using a rectangle to highlight an area of text or word on a video stream may be just as difficult to see for a person with partial sight, as the original word is in front of them.
 Hence limiting the device to read out only those words that the end user touches may pose some difficulty. More methods of interaction should
 be investigated such as permitting the user to point using their hand in front of the camera and recognising the word closest to where they are pointing prior to reading that out.
 How does a screen provide feedback, for a person of low site? Perhaps high contrast colours may be of some help here, and perhaps some kind of audible tone that assists in aiming at the target word either using touch motions or using the hand in front of the device tracked in the video stream.

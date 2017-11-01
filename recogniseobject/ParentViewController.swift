@@ -9,6 +9,7 @@ import MetalKit
 import AVFoundation
 import Vision
 import TesseractOCR
+import AudioToolbox.AudioServices
 
 class ParentViewController:
 UIViewController,
@@ -38,6 +39,11 @@ WithLock {
      the device speech synthesizer
      **/
     let speech = AVSpeechSynthesizer()
+    
+    /**
+     selection feedback is used to indicate to the user that their touches have moved into a word boundary.
+     **/
+    let selectFeedback = UISelectionFeedbackGenerator()
     
     let context = CIContext()
     
@@ -100,6 +106,30 @@ WithLock {
      session.startRunning()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.selectFeedback.prepare()
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touches.forEach {
+            touch in
+            let loc = touch.location(in:self.streamView)
+            let selectFn = self.withLock {
+                let temp = Array<TextSegmentBatch>(self.batches)
+                let matches = temp.filter {
+                    batch in
+                    let candidates = batch.selectSegmentsContaining(point: loc)
+                    return candidates.count > 0
+                }
+                if (matches.count > 0) {
+                    let vibrate = SystemSoundID(kSystemSoundID_Vibrate)
+                    AudioServicesPlaySystemSound(vibrate)
+                    self.selectFeedback.selectionChanged()
+                }
+            }
+        }
+    }
+    
     /**
      if the user touches the screen where there is an active word selection area
      then the device should read the text and announce it.
@@ -128,6 +158,10 @@ WithLock {
             segment in
             parentBatch.runClassification(segment: segment)
             if let text = segment.charMapping {
+                segment.image.flatMap {
+                    img in
+                    self.transferSegmentToImagePreview(segment:segment,newImg: img)
+                }
                 // there is a character mapping then put it on the tts queue.
                 return text
             } else { return "" }
@@ -290,21 +324,15 @@ WithLock {
         return CIImage(cgImage: scaled)
     }
     
-    // extract the character from the supplied image and display it in the image preview
-    func transferSegmentToImagePreview(segment:TextSegment, newImg:CIImage,
-                                       borderCol:CGColor = UIColor.blue.cgColor,
+    /**
+     display the word boundary on the av image.
+     **/
+    func transferSegmentToWordBoundary(segment:TextSegment, borderCol:CGColor = UIColor.blue.cgColor,
                                        fillCol:CGColor? = nil) {
-        
-        guard let scaled = self.context.createCGImage(newImg, from: newImg.extent) else {
-            return
-        }
         // update the ui
         DispatchQueue.main.async() {
             let layer = self.streamView!.layer
             let bounds = layer.sublayers![0].bounds
-            
-            let img = UIImage(cgImage:scaled)
-            self.imagePreview.image = img
             
             let newFrame = CGRect(x:segment.scaledRect!.origin.x,
                                   y:bounds.height - segment.scaledRect!.origin.y - segment.scaledRect!.height,
@@ -327,6 +355,20 @@ WithLock {
         }
     }
     
+    // extract the character from the supplied image and display it in the image preview
+    func transferSegmentToImagePreview(segment:TextSegment, newImg:CIImage) {
+        
+        guard let scaled = self.context.createCGImage(newImg, from: newImg.extent) else {
+            return
+        }
+        // update the ui
+        DispatchQueue.main.async() {
+            
+            let img = UIImage(cgImage:scaled)
+            self.imagePreview.image = img
+        }
+    }
+    
     /**
      process the word segment.
      **/
@@ -346,8 +388,7 @@ WithLock {
         let bgCol = Optional(
             UIColor(red:1.0, green:0.0, blue:0.0, alpha:0.5).cgColor )
         
-        self.transferSegmentToImagePreview(segment: wordSegment,
-                                           newImg: wordImg,
+        self.transferSegmentToWordBoundary(segment: wordSegment,
                                            borderCol:UIColor.red.cgColor,
                                            fillCol:bgCol)
         
