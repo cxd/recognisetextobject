@@ -80,6 +80,7 @@
 		6288F7611F80C80500C1E345 /* recogniseobject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = recogniseobject.entitlements; sourceTree = "<group>"; };
 		6288F7631F80CB9500C1E345 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		6288F7651F80CB9F00C1E345 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		6294F4A61FAC528C006A7A9E /* image_histogram.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = image_histogram.playground; sourceTree = "<group>"; };
 		62E999D31FA9880F0049DCF9 /* WithLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithLock.swift; sourceTree = "<group>"; };
 		62E999D51FA9C2A40049DCF9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		62E999D71FA9E7E40049DCF9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -139,6 +140,7 @@
 		6288F7241F80C75E00C1E345 = {
 			isa = PBXGroup;
 			children = (
+				6294F4A51FAC5121006A7A9E /* workbooks */,
 				622E8D2C1FA85EDB00E669CC /* Podfile */,
 				620603BA1F88744C00017D56 /* README.md */,
 				6288F72F1F80C75E00C1E345 /* recogniseobject */,
@@ -213,6 +215,14 @@
 				282DE08F185657035173F70F /* Pods_recogniseobjectUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6294F4A51FAC5121006A7A9E /* workbooks */ = {
+			isa = PBXGroup;
+			children = (
+				6294F4A61FAC528C006A7A9E /* image_histogram.playground */,
+			);
+			path = workbooks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

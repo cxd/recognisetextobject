@@ -294,6 +294,8 @@ WithLock {
             // TODO: determine if image requires invert based on dominant colour (dark or light)
             .applyingFilter("CIColorInvert", parameters:[:])
         
+        
+        
         guard let scaled = self.context.createCGImage(newImg, from: newImg.extent) else {
             return nil
         }
