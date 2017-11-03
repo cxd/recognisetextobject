@@ -170,14 +170,18 @@ WithLock {
             text in
             return !text.isEmpty
         }.joined(separator:" ")
+        // update and announcement.
         DispatchQueue.main.async {
-            self.textView.text = displayText
+            self.textView!.text = displayText
+            self.textView!.setNeedsDisplay()
+            
             if (!displayText.isEmpty && displayText != " ") {
+                print("Debug Speak: \(displayText)")
                 let utterance = AVSpeechUtterance(string: displayText)
-                
                 self.speech.speak(utterance)
             }
         }
+       
     }
     
     /**
@@ -211,23 +215,28 @@ WithLock {
     
     func textRectangleToSegment(boxRect:CGRect) -> TextSegment {
         var uiRect = CGRect()
+        var uiTransform = CGAffineTransform(scaleX:1, y:1)
         DispatchQueue.main.sync() {
-            uiRect = self.streamView!.bounds
+            uiRect = self.streamView!.layer.sublayers![0].bounds
         }
+        
         let scaleX = uiRect.width
         let scaleY = uiRect.height
         
         // we want the scaled rectangle for the drawing area.
-        // s_x s_y and concatenate with transform to offset against the height of the streaming view boundar.
+        // the input rect is actually a normalised rectangle with values 0 <= i <= 1.
+        // when we use the full bounds below, this scales the rect as a proportion of the
+        // full bounds.
+        // ordinarily we'd need to calculate the proportions and scale by proportions, however
+        // in this case the proportion is the rectangle being scaled.
         let transform = CGAffineTransform(scaleX:CGFloat(scaleX), y:CGFloat(scaleY))
-        //.concatenating(CGAffineTransform(translationX: 0, y: 0))
+        
         let tempRect = boxRect.applying(transform)
         let scaledRect = CGRect(x:tempRect.origin.x,
                                 y:tempRect.origin.y,
                                 width:tempRect.width,
                                 height:tempRect.height)
-        
-        
+ 
         let debug = String(format:"x:%f y:%f width:%f height:%f",
                            boxRect.minX,
                            boxRect.minY,
@@ -271,11 +280,17 @@ WithLock {
                 kCIInputSaturationKey: 0,
                 kCIInputContrastKey: 0.5
                 ])
+            .applyingFilter("CIMaximumComponent")
+            .applyingFilter("CIColorPosterize",
+                            parameters: [
+                                "inputLevels": 6.0
+                ])
             .applyingFilter("CIColorMonochrome",
                             parameters: [
                                 "inputColor":CIColor.white,
                                 "inputIntensity":1.1
                 ])
+            
             // TODO: determine if image requires invert based on dominant colour (dark or light)
             .applyingFilter("CIColorInvert", parameters:[:])
         
@@ -293,7 +308,8 @@ WithLock {
                                        fillCol:CGColor? = nil) {
         // update the ui
         DispatchQueue.main.async() {
-            let bounds = self.streamView!.bounds
+            // scale the original bounds by the current view transform
+            var bounds = self.streamView!.layer.sublayers![0].bounds
             
             let newFrame = CGRect(x:segment.scaledRect!.origin.x,
                                   y:bounds.height - segment.scaledRect!.origin.y - segment.scaledRect!.height,

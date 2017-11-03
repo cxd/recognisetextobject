@@ -38,6 +38,16 @@ class TextSegmentBatch:NSObject, G8TesseractDelegate {
     
     /**
      run the classification task on the text segment.
+     it appears that the larger the image, the longer the process takes to operate.
+     note also, it is better to pass a whole word image into the library
+     as it seems to have some ability to model likely sequences of characters.
+     However it would also be interesting to post process the result using perhaps a spell checker
+     that could also allocate scores to likely occurances of words in sequence, such as a sliding
+     bigram or trigram model.
+     One facility that is available is the UITextChecker that may provide some assistance recommendations
+     for a supplied text range.
+     A bigram or trigram model may need to be constructed independently and loaded as a resource on the device
+     in order to obtain scores.
      **/
     func runClassification(segment:TextSegment) {
         guard let img = segment.image else {
